@@ -13,7 +13,8 @@ public class RecipeMapper {
         return Recipe.builder()
                 .name(dto.getName())
                 .description(dto.getDescription())
-                .imgUrl(dto.getImgUrl())
+//                .imgUrl(dto.getImgUrl()) TODO: Implementar servicio de subida de imágenes a futuro
+                .imgUrl("https://static.vecteezy.com/system/resources/previews/047/411/185/non_2x/food-logo-icon-symbol-silhouette-on-white-background-free-vector.jpg") // Imagen por defecto por ahora
                 .preparationTime(dto.getPreparationTime())
                 .cookTime(dto.getCookTime())
                 .servings(dto.getServings())
@@ -39,7 +40,8 @@ public class RecipeMapper {
     public static void fromUpdateDTOToEntity(Recipe recipe, UpdateRecipeDTO dto) {
         recipe.setName(dto.getName());
         recipe.setDescription(dto.getDescription());
-        recipe.setImgUrl(dto.getImgUrl());
+        //recipe.setImgUrl(dto.getImgUrl()); TODO: Implementar servicio de subida de imágenes a futuro. Imagen por defecto por ahora
+        recipe.setImgUrl("https://static.vecteezy.com/system/resources/previews/047/411/185/non_2x/food-logo-icon-symbol-silhouette-on-white-background-free-vector.jpg");
         recipe.setPreparationTime(dto.getPreparationTime());
         recipe.setCookTime(dto.getCookTime());
         recipe.setServings(dto.getServings());

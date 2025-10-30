@@ -23,7 +23,7 @@ public class BaseRecipeDTO {
     @NotBlank(message = "La descripción es obligatoria")
     private String description;
 
-    @NotBlank(message = "La URL de imagen es obligatoria")
+    //    @NotBlank(message = "La URL de imagen es obligatoria") TODO: Implementar servicio de subida de imágenes a futuro
     @Pattern(regexp = "^(https?|ftp)://.*$", message = "La URL de imagen debe tener un formato válido")
     private String imgUrl;
 
