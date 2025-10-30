@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Receta PDF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f4f1;
+            color: #594d4a;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 650px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 15px;
+            padding: 32px 25px 40px 25px;
+            border: 1px solid #e2dbd5;
+        }
+
+        .header {
+            margin-bottom: 22px;
+            height: 160px;
+        }
+
+        .header-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 14px;
+            border: 4px solid #e2dbd5;
+            float: left;
+            margin-right: 30px;
+        }
+
+        .header-title {
+            margin-left: 200px;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            margin: 0;
+            color: #3a2f2a;
+            font-family: cursive;
+        }
+
+        .subtitle {
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 1em;
+            color: #a18d7c;
+            margin-bottom: 6px;
+        }
+
+        .recipe-meta {
+            clear: both;
+            margin: 20px 0 10px 0;
+        }
+        .meta-label {
+            font-weight: bold;
+            color: #a18d7c;
+        }
+        .meta-value {
+            color: #3a2f2a;
+        }
+
+        h2 {
+            font-size: 1.3em;
+            color: #a18d7c;
+            margin-top: 34px;
+            margin-bottom: 8px;
+            border-bottom: 1px dashed #e2dbd5;
+        }
+
+        ul, ol {
+            font-size: 1em;
+            margin-left: 0;
+            padding-left: 18px;
+        }
+        li {
+            margin-bottom: 7px;
+        }
+
+        .section {
+            margin-bottom: 14px;
+        }
+
+        .procedimiento {
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+        .recipe-meta-cards {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .recipe-meta-card {
+            display: table-cell;
+            vertical-align: top;
+            background: #faf7f6;
+            border-radius: 13px;
+            border: 1px solid #f2dfdb;
+            text-align: center;
+            padding: 18px 8px 14px 8px;
+            margin: 0 10px 18px 0;
+            min-width: 120px;
+        }
+        .recipe-meta-card:last-child {
+            margin-right: 0;
+        }
+        .recipe-meta-icon {
+            display: block;
+            margin: 0 auto 8px auto;
+            height: 35px;
+            width: 35px;
+        }
+
+        .recipe-meta-label {
+            color: #a18d7c;
+            font-size: 1em;
+            letter-spacing: .5px;
+            margin-top: 3px;
+            margin-bottom: 2px;
+            display: block;
+        }
+        .recipe-meta-value {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #444;
+            margin-top: 2px;
+            margin-bottom: 0px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img th:src="${recipe.imgUrl}" alt="Imagen de receta" class="header-img"/>
+        <div class="header-title">
+            <div class="subtitle">Receta</div>
+            <h1 th:text="${recipe.name}">Nombre de la receta</h1>
+        </div>
+    </div>
+    <div class="recipe-meta-cards">
+        <div class="recipe-meta-card">
+            <span class="recipe-meta-label">Tiempo Total</span>
+            <span class="recipe-meta-value" th:text="${recipe.cookTime + recipe.preparationTime}">0</span>
+            <span class="recipe-meta-label" style="font-size:0.95em;margin:0;">min</span>
+        </div>
+        <div class="recipe-meta-card">
+            <span class="recipe-meta-label">Tiempo Preparación</span>
+            <span class="recipe-meta-value" th:text="${recipe.preparationTime}">0</span>
+            <span class="recipe-meta-label" style="font-size:0.95em;margin:0;">min</span>
+        </div>
+        <div class="recipe-meta-card">
+            <span class="recipe-meta-label">Tiempo Cocina</span>
+            <span class="recipe-meta-value" th:text="${recipe.cookTime}">0</span>
+            <span class="recipe-meta-label" style="font-size:0.95em;margin:0;">min</span>
+        </div>
+        <div class="recipe-meta-card">
+            <span class="recipe-meta-label">Porciones</span>
+            <span class="recipe-meta-value" th:text="${recipe.servings}">0</span>
+        </div>
+    </div>
+
+    <div style="text-align:center;margin-bottom:18px;color:#a18d7c;">
+        <span style="padding:0 12px;">Categoría: <span th:text="${recipe.category}">Category</span></span> |
+        <span style="padding:0 12px;">Dificultad: <span th:text="${recipe.difficulty}">Difficulty</span></span>
+    </div>
+    <div class="section">
+        <p th:text="${recipe.description}">Descripción de la receta</p>
+    </div>
+    <h2>Ingredientes</h2>
+    <ul>
+        <li th:each="ing : ${recipe.ingredients}" th:text="${ing.name}">Ingrediente</li>
+    </ul>
+    <h2>Pasos</h2>
+    <ol class="procedimiento">
+        <li th:each="step : ${recipe.steps}" th:text="${step.description}">Paso</li>
+    </ol>
+</div>
+</body>
+</html>
