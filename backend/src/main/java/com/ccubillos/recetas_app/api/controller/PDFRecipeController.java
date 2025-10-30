@@ -21,12 +21,10 @@ public class PDFRecipeController {
 
     private final PDFGeneratorService pdfGeneratorService;
     private final RecipeService recipeService;
-    private final ResponseFactory responseFactory;
 
     public PDFRecipeController(PDFGeneratorService pdfGeneratorService, RecipeService recipeService, ResponseFactory responseFactory) {
         this.pdfGeneratorService = pdfGeneratorService;
         this.recipeService = recipeService;
-        this.responseFactory = responseFactory;
     }
 
     @GetMapping("/{id}")

@@ -6,8 +6,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class ApiPrefixConfig implements WebMvcConfigurer {
+
+    public static final String API_VERSION = "/api/v1";
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-        configurer.addPathPrefix("/api/v1", c -> c.isAnnotationPresent(RestController.class));
+        configurer.addPathPrefix(API_VERSION, c -> c.isAnnotationPresent(RestController.class));
     }
 }
