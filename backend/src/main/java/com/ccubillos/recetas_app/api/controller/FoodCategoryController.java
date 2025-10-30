@@ -1,9 +1,9 @@
 package com.ccubillos.recetas_app.api.controller;
 
 import com.ccubillos.recetas_app.api.response.HTTPAPIListResponse;
-import com.ccubillos.recetas_app.api.response.HTTPAPISingleResponse;
 import com.ccubillos.recetas_app.api.response.ResponseFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.ccubillos.recetas_app.model.enums.FoodCategory;
@@ -20,7 +20,7 @@ public class FoodCategoryController {
         this.responseFactory = responseFactory;
     }
 
-    @RequestMapping
+    @GetMapping
     public ResponseEntity<HTTPAPIListResponse<FoodCategory>> getAllFoodCategories() {
         return responseFactory.listSuccess(List.of(FoodCategory.values()), "Food categories retrieved successfully");
     }
