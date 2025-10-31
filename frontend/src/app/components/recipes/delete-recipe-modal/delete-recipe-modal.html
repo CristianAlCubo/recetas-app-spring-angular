@@ -1,0 +1,13 @@
+<app-modal
+  #deleteModal
+  [title]="'Eliminar receta'"
+  [icon]="'bi-trash'"
+  [content]="'¿Estás seguro de que deseas eliminar esta receta?'"
+  [colorClass]="'danger'"
+  [confirmButtonColor]="'danger'"
+  [confirmButtonText]="'Eliminar'"
+  [cancelButtonText]="'Cancelar'"
+  [showCancelButton]="true"
+  (onConfirm)="deleteRecipe()"
+  (onCancel)="cancelDelete()"
+></app-modal>

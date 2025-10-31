@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
-import { RecipeDetails } from "../../components/recipe-details/recipe-details";
-import { RecipeService } from "../../services/recipe-service";
+import { RecipeDetails } from '../../components/recipes/recipe-details/recipe-details';
+import { RecipeService } from '../../services/recipe-service';
 import { Recipe as RecipeType } from '../../types/recipe';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
@@ -11,7 +11,6 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
   styleUrl: './recipe.css',
 })
 export class Recipe {
-
   protected recipeService = inject(RecipeService);
   protected recipe = signal<RecipeType | null>(null);
   protected route = inject(ActivatedRoute);
@@ -21,8 +20,8 @@ export class Recipe {
         this.recipe.set(response.data);
       },
       error: (error) => {
-        console.error("Error:", error);
-      }
+        console.error('Error:', error);
+      },
     });
   }
 }

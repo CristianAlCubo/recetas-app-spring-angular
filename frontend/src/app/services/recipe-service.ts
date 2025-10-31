@@ -10,11 +10,9 @@ import { Recipe } from '../types/recipe';
   providedIn: 'root',
 })
 export class RecipeService {
-
-
   private API_URL = `http://${environment.API_HOST}:${environment.API_PORT}/api/${environment.API_VERSION}/recipe`;
   private headers = new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   });
 
   constructor(private http: HttpClient) {}
@@ -31,13 +29,21 @@ export class RecipeService {
   }
 
   getRecipe(id: number): Observable<ApiResponse<Recipe>> {
-    return this.http.get<ApiResponse<Recipe>>(`${this.API_URL}/${id}`, { headers: this.headers }).pipe(
-      tap((response: ApiResponse<Recipe>) => {
-        return response.data;
-      }),
-      catchError((error) => {
-        return throwError(() => error);
-      })
-    );
+    return this.http
+      .get<ApiResponse<Recipe>>(`${this.API_URL}/${id}`, { headers: this.headers })
+      .pipe(
+        tap((response: ApiResponse<Recipe>) => {
+          return response.data;
+        }),
+        catchError((error) => {
+          return throwError(() => error);
+        })
+      );
+  }
+
+  deleteRecipe(id: number): Observable<ApiResponse<Recipe[]>> {
+    return this.http.delete<ApiResponse<Recipe[]>>(`${this.API_URL}/${id}`, {
+      headers: this.headers,
+    });
   }
 }

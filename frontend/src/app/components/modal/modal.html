@@ -1,0 +1,35 @@
+@if (isVisible()) {
+<div class="modal-overlay" (click)="handleCancel()">
+  <div class="modal-dialog" (click)="$event.stopPropagation()">
+    <div class="modal-content">
+      <div class="modal-header" [ngClass]="getHeaderClass()">
+        <div class="modal-title-container">
+          @if (icon()) {
+          <i [class]="'bi ' + icon()"></i>
+          }
+          <h5 class="modal-title">{{ title() }}</h5>
+        </div>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          (click)="handleCancel()"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        {{ content() }}
+      </div>
+      <div class="modal-footer">
+        @if (showCancelButton()) {
+        <button type="button" class="btn btn-secondary" (click)="handleCancel()">
+          {{ cancelButtonText() }}
+        </button>
+        }
+        <button type="button" [ngClass]="getConfirmButtonClass()" (click)="handleConfirm()">
+          {{ confirmButtonText() }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+}

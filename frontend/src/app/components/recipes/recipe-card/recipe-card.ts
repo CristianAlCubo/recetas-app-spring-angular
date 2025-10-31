@@ -1,6 +1,6 @@
 import { Component, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CategoryLabels, Recipe, RecipeCategory } from '../../types/recipe';
+import { CategoryLabels, Recipe, RecipeCategory } from '../../../types/recipe';
 import { Router } from '@angular/router';
 
 @Component({
@@ -24,8 +24,8 @@ export class RecipeCard {
       [RecipeCategory.DESSERT]: 'bg-danger text-dark',
       [RecipeCategory.BEVERAGE]: 'bg-primary text-dark',
     };
-    console.log("Category:", this.recipe().category);
-    console.log("ClassName:", categoryClasses[this.recipe().category]);
+    console.log('Category:', this.recipe().category);
+    console.log('ClassName:', categoryClasses[this.recipe().category]);
     return categoryClasses[this.recipe().category];
   }
 
