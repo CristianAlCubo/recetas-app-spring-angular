@@ -14,10 +14,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.ccubillos.recetas_app.config.ApiPrefixConfig.API_VERSION;
 
@@ -27,10 +32,35 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private final RequestMatcher publicEndpoints;
+
+    private static final String[] SWAGGER_WHITELIST = {
+            "/swagger-ui.html", "/swagger-ui/**",
+            "/v3/api-docs/**", "/swagger-resources/**",
+            "/webjars/**", "/swagger-ui/index.html",
+            "**/swagger-config", "**/api-docs/**"
+    };
 
     public JwtAuthFilter(JwtService jwtService, UserDetailsService userDetailsService) {
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
+        this.publicEndpoints = createPublicEndpointsMatcher();
+    }
+
+    private RequestMatcher createPublicEndpointsMatcher() {
+        List<RequestMatcher> matchers = new ArrayList<>();
+
+        // Add Swagger paths without and with potential API prefix
+        for (String pattern : SWAGGER_WHITELIST) {
+            matchers.add(new AntPathRequestMatcher(pattern));
+            matchers.add(new AntPathRequestMatcher("/**" + pattern));
+        }
+
+        // Add other public endpoints
+        matchers.add(new AntPathRequestMatcher(API_VERSION + "/auth/**"));
+        matchers.add(new AntPathRequestMatcher("/public/**"));
+
+        return new OrRequestMatcher(matchers.toArray(new RequestMatcher[0]));
     }
 
     @Override
@@ -81,13 +111,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    /**
-     * Excluye rutas públicas como /auth/login o /auth/register del filtro JWT.
-     */
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        String path = request.getRequestURI();
-        return path.startsWith(API_VERSION + "/auth/");
+        return publicEndpoints.matches(request);
     }
 
     private void writeErrorResponse(HttpServletResponse response, HttpStatus status, String message) throws IOException {
