@@ -5,12 +5,12 @@ import { Recipe as RecipeType } from '../../types/recipe';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-recipe',
+  selector: 'app-recipe-details-page',
   imports: [RecipeDetails, RouterLink],
-  templateUrl: './recipe.html',
-  styleUrl: './recipe.css',
+  templateUrl: './recipe-details-page.html',
+  styleUrl: './recipe-details-page.css',
 })
-export class Recipe {
+export class RecipeDetailsPage {
   protected recipeService = inject(RecipeService);
   protected recipe = signal<RecipeType | null>(null);
   protected route = inject(ActivatedRoute);

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Recipe } from './recipe';
+import { DynamicListInput } from './dynamic-list-input';
 
-describe('Recipe', () => {
-  let component: Recipe;
-  let fixture: ComponentFixture<Recipe>;
+describe('DynamicListInput', () => {
+  let component: DynamicListInput;
+  let fixture: ComponentFixture<DynamicListInput>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Recipe]
+      imports: [DynamicListInput]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Recipe);
+    fixture = TestBed.createComponent(DynamicListInput);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

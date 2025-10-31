@@ -1,0 +1,7 @@
+<app-recipe-form
+  [mode]="'update'"
+  [recipe]="recipe()"
+  (onSubmitForm)="handleSubmit($event)"
+  (onCancel)="handleCancel()"
+></app-recipe-form>
+<app-footer></app-footer>

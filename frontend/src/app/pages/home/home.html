@@ -1,8 +1,10 @@
+@if(recipes().length > 0) {
 <app-menu
   (onSearch)="handleSearch($event)"
   (onFilterChange)="handleFilterChange($event)"
 ></app-menu>
+}
 
-<app-recipe-list></app-recipe-list>
+<app-recipe-list [recipes]="recipes()"></app-recipe-list>
 
 <app-footer></app-footer>

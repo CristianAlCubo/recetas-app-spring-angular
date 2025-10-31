@@ -13,14 +13,15 @@
           <span class="badge bg-success">{{ recipe().category }}</span>
           <span class="badge bg-info ms-2" [ngClass]="'text-dark'">{{ recipe().difficulty }}</span>
           <div class="d-flex gap-3 mt-3 d-sm-none">
-            <button
+            <a
+              [routerLink]="['/recipe/edit', recipe().id]"
               type="button"
               class="btn btn-info btn-circle d-flex align-items-center justify-content-center p-0 rounded-circle"
               style="width: 40px; height: 40px"
               title="Editar"
             >
               <i class="bi bi-pencil-square"></i>
-            </button>
+            </a>
             <button
               type="button"
               class="btn btn-danger btn-circle d-flex align-items-center justify-content-center p-0 rounded-circle"
@@ -35,14 +36,15 @@
         </div>
         <!-- Desktop: Mostrar botones a la derecha -->
         <div class="d-none d-sm-flex gap-4">
-          <button
+          <a
+            [routerLink]="['/recipe/edit', recipe().id]"
             type="button"
             class="btn btn-info btn-circle d-flex align-items-center justify-content-center p-0 rounded-circle"
             style="width: 40px; height: 40px"
             title="Editar"
           >
             <i class="bi bi-pencil-square"></i>
-          </button>
+          </a>
           <button
             type="button"
             class="btn btn-danger btn-circle d-flex align-items-center justify-content-center p-0 rounded-circle"

@@ -12,14 +12,76 @@
       </button>
     </div>
 
-    <div class="d-flex gap-2 flex-wrap">
-      <button [class.btn-success]="isActive(null)" [class.btn-light]="!isActive(null)" class="btn border" (click)="filterByCategory(null)">Todos</button>
-      <button [class.btn-success]="isActive('Desayuno')" [class.btn-light]="!isActive('Desayuno')" class="btn border" (click)="filterByCategory('Desayuno')">Desayuno</button>
-      <button [class.btn-success]="isActive('Almuerzo')" [class.btn-light]="!isActive('Almuerzo')" class="btn border" (click)="filterByCategory('Almuerzo')">Almuerzo</button>
-      <button [class.btn-success]="isActive('Cena')" [class.btn-light]="!isActive('Cena')" class="btn border" (click)="filterByCategory('Cena')">Cena</button>
-      <button [class.btn-success]="isActive('Postre')" [class.btn-light]="!isActive('Postre')" class="btn border" (click)="filterByCategory('Postre')">Postre</button>
-      <button [class.btn-success]="isActive('Snack')" [class.btn-light]="!isActive('Snack')" class="btn border" (click)="filterByCategory('Snack')">Vegetariano</button>
-      <button [class.btn-success]="isActive('Bebida')" [class.btn-light]="!isActive('Bebida')" class="btn border" (click)="filterByCategory('Bebida')">Rápido y Fácil</button>
+    <div class="d-flex gap-2 flex-wrap align-items-center justify-content-between menu-controls">
+      <!-- Filtros por categoría (scrollable en móvil) -->
+      <div class="filters-container">
+        <button
+          [class.btn-success]="isActive(null)"
+          [class.btn-light]="!isActive(null)"
+          class="btn btn-sm border filter-btn"
+          (click)="filterByCategory(null)"
+        >
+          Todos
+        </button>
+        <button
+          [class.btn-success]="isActive('Desayuno')"
+          [class.btn-light]="!isActive('Desayuno')"
+          class="btn btn-sm border filter-btn"
+          (click)="filterByCategory('Desayuno')"
+        >
+          Desayuno
+        </button>
+        <button
+          [class.btn-success]="isActive('Almuerzo')"
+          [class.btn-light]="!isActive('Almuerzo')"
+          class="btn btn-sm border filter-btn"
+          (click)="filterByCategory('Almuerzo')"
+        >
+          Almuerzo
+        </button>
+        <button
+          [class.btn-success]="isActive('Cena')"
+          [class.btn-light]="!isActive('Cena')"
+          class="btn btn-sm border filter-btn"
+          (click)="filterByCategory('Cena')"
+        >
+          Cena
+        </button>
+        <button
+          [class.btn-success]="isActive('Postre')"
+          [class.btn-light]="!isActive('Postre')"
+          class="btn btn-sm border filter-btn"
+          (click)="filterByCategory('Postre')"
+        >
+          Postre
+        </button>
+        <button
+          [class.btn-success]="isActive('Snack')"
+          [class.btn-light]="!isActive('Snack')"
+          class="btn btn-sm border filter-btn"
+          (click)="filterByCategory('Snack')"
+        >
+          Vegetariano
+        </button>
+        <button
+          [class.btn-success]="isActive('Bebida')"
+          [class.btn-light]="!isActive('Bebida')"
+          class="btn btn-sm border filter-btn"
+          (click)="filterByCategory('Bebida')"
+        >
+          Rápido y Fácil
+        </button>
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-success btn-create-recipe ms-auto"
+        [routerLink]="['/recipe/new']"
+        title="Crear nueva receta"
+      >
+        <i class="bi bi-plus-circle"></i>
+        <span class="create-text">Crear</span>
+      </button>
     </div>
   </div>
 </div>

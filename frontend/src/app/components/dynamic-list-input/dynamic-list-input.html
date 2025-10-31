@@ -1,0 +1,86 @@
+<div class="dynamic-list-container">
+  <!-- Lista de items existentes -->
+  <div class="items-list">
+    @for (item of items(); track item.id) {
+    <div class="list-item">
+      @if (item.isEditing) {
+      <input
+        type="text"
+        class="form-control form-control-sm"
+        [value]="item.value"
+        #editInput
+        (blur)="saveEdit(item.id, editInput.value)"
+        (keydown)="handleEditKeydown($event, item.id, editInput.value)"
+        autofocus
+      />
+      <div class="item-actions">
+        <button
+          type="button"
+          class="btn btn-sm btn-success"
+          (click)="saveEdit(item.id, editInput.value)"
+          title="Guardar"
+        >
+          <i class="bi bi-check-lg"></i>
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm btn-secondary"
+          (click)="cancelEdit(item.id)"
+          title="Cancelar"
+        >
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      } @else {
+      <span class="item-text" (click)="startEdit(item.id)">{{ item.value }}</span>
+      <div class="item-actions">
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-primary"
+          (click)="startEdit(item.id)"
+          title="Editar"
+        >
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-danger"
+          (click)="removeItem(item.id)"
+          title="Eliminar"
+        >
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+      }
+    </div>
+    } @if (items().length === 0) {
+    <div class="empty-state text-muted">
+      <i class="bi bi-inbox"></i>
+      <span>No hay elementos. Agrega uno abajo.</span>
+    </div>
+    }
+  </div>
+
+  <!-- Input para nuevo item -->
+  <div class="add-item-container">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Escribe y presiona Enter o haz clic en +"
+      [ngModel]="newItemValue()"
+      (ngModelChange)="newItemValue.set($event)"
+      (keydown)="handleKeydown($event)"
+      #newItemInput
+    />
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="addItem()"
+      [disabled]="!newItemValue().trim()"
+      title="Agregar elemento"
+    >
+      <i class="bi bi-plus-circle"></i>
+      Agregar
+    </button>
+  </div>
+</div>

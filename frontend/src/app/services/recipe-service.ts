@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { ApiResponse } from '../types/api';
 import { Observable, throwError } from 'rxjs';
-import { Recipe } from '../types/recipe';
+import { CreateRecipe, Recipe } from '../types/recipe';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +34,32 @@ export class RecipeService {
       .pipe(
         tap((response: ApiResponse<Recipe>) => {
           return response.data;
+        }),
+        catchError((error) => {
+          return throwError(() => error);
+        })
+      );
+  }
+
+  createRecipe(recipe: CreateRecipe): Observable<ApiResponse<Recipe>> {
+    return this.http
+      .post<ApiResponse<Recipe>>(`${this.API_URL}`, recipe, { headers: this.headers })
+      .pipe(
+        tap((response: ApiResponse<Recipe>) => {
+          return response;
+        }),
+        catchError((error) => {
+          return throwError(() => error);
+        })
+      );
+  }
+
+  updateRecipe(id: number, recipe: CreateRecipe): Observable<ApiResponse<Recipe>> {
+    return this.http
+      .put<ApiResponse<Recipe>>(`${this.API_URL}/${id}`, recipe, { headers: this.headers })
+      .pipe(
+        tap((response: ApiResponse<Recipe>) => {
+          return response;
         }),
         catchError((error) => {
           return throwError(() => error);

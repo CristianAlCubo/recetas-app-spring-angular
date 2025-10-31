@@ -1,0 +1,252 @@
+<div class="bg-white">
+  <div class="container py-5">
+    <form [formGroup]="recipeForm" (ngSubmit)="handleSubmit()">
+      <!-- Encabezado con título y botones -->
+      <div class="mb-5">
+        <div
+          class="d-flex flex-column flex-sm-row justify-content-between align-items-start gap-3 mb-3"
+        >
+          <div class="flex-grow-1">
+            <h1 class="fw-bold mb-3">
+              <i
+                [class]="
+                  isUpdateMode()
+                    ? 'bi bi-pencil-square text-success'
+                    : 'bi bi-clipboard-plus text-success'
+                "
+              ></i>
+              {{ getFormTitle() }}
+            </h1>
+          </div>
+
+          <!-- Botones de acción en header (Desktop) -->
+          <div class="d-none d-sm-flex gap-3">
+            <button type="button" class="btn btn-outline-secondary" (click)="handleCancel()">
+              <i class="bi bi-x-circle"></i>
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-success"
+              [disabled]="submitted && recipeForm.invalid"
+            >
+              <i [class]="isUpdateMode() ? 'bi bi-check-circle' : 'bi bi-plus-circle'"></i>
+              {{ getSubmitButtonText() }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nombre y Descripción -->
+      <div class="mb-4">
+        <label for="name" class="form-label fw-bold fs-5">
+          Nombre de la receta <span class="text-danger">*</span>
+        </label>
+        <input
+          type="text"
+          class="form-control form-control-lg"
+          id="name"
+          formControlName="name"
+          [class.is-invalid]="isFieldInvalid('name')"
+          placeholder="Ej: Pasta a la carbonara"
+        />
+        @if (isFieldInvalid('name')) {
+        <div class="invalid-feedback">
+          {{ getErrorMessage('name') }}
+        </div>
+        }
+      </div>
+
+      <div class="mb-5">
+        <label for="description" class="form-label text-muted">
+          Descripción <span class="text-danger">*</span>
+        </label>
+        <textarea
+          class="form-control"
+          id="description"
+          formControlName="description"
+          [class.is-invalid]="isFieldInvalid('description')"
+          rows="3"
+          placeholder="Describe brevemente tu receta..."
+        ></textarea>
+        @if (isFieldInvalid('description')) {
+        <div class="invalid-feedback">
+          {{ getErrorMessage('description') }}
+        </div>
+        }
+      </div>
+
+      <!-- Categoría, Dificultad y Porciones -->
+      <div class="row g-3 mb-5">
+        <div class="col-md-4">
+          <label for="category" class="form-label">
+            Categoría <span class="text-danger">*</span>
+          </label>
+          <select
+            class="form-select"
+            id="category"
+            formControlName="category"
+            [class.is-invalid]="isFieldInvalid('category')"
+          >
+            <option value="">Selecciona una categoría</option>
+            @for (category of categories; track category) {
+            <option [value]="category">{{ categoryLabels[category] }}</option>
+            }
+          </select>
+          @if (isFieldInvalid('category')) {
+          <div class="invalid-feedback">
+            {{ getErrorMessage('category') }}
+          </div>
+          }
+        </div>
+
+        <div class="col-md-4">
+          <label for="difficulty" class="form-label">
+            Dificultad <span class="text-danger">*</span>
+          </label>
+          <select
+            class="form-select"
+            id="difficulty"
+            formControlName="difficulty"
+            [class.is-invalid]="isFieldInvalid('difficulty')"
+          >
+            <option value="">Selecciona la dificultad</option>
+            @for (difficulty of difficulties; track difficulty) {
+            <option [value]="difficulty">{{ difficultyLabels[difficulty] }}</option>
+            }
+          </select>
+          @if (isFieldInvalid('difficulty')) {
+          <div class="invalid-feedback">
+            {{ getErrorMessage('difficulty') }}
+          </div>
+          }
+        </div>
+
+        <div class="col-md-4">
+          <label for="servings" class="form-label">
+            Porciones <span class="text-danger">*</span>
+          </label>
+          <input
+            type="number"
+            class="form-control"
+            id="servings"
+            formControlName="servings"
+            [class.is-invalid]="isFieldInvalid('servings')"
+            placeholder="4"
+            min="1"
+          />
+          @if (isFieldInvalid('servings')) {
+          <div class="invalid-feedback">
+            {{ getErrorMessage('servings') }}
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Información de Tiempos (estilo cards como en detalles) -->
+      <div class="row g-3 mb-5">
+        <div class="col-sm-6 col-md-4">
+          <div class="card border-success border-2 h-100">
+            <div class="card-body">
+              <label for="preparationTime" class="form-label d-flex align-items-center gap-2">
+                <i class="bi bi-clock-history text-success" style="font-size: 1.5rem"></i>
+                <span class="fw-bold">Preparación (min) <span class="text-danger">*</span></span>
+              </label>
+              <input
+                type="number"
+                class="form-control form-control-lg text-center"
+                id="preparationTime"
+                formControlName="preparationTime"
+                [class.is-invalid]="isFieldInvalid('preparationTime')"
+                placeholder="30"
+                min="1"
+              />
+              @if (isFieldInvalid('preparationTime')) {
+              <div class="invalid-feedback">
+                {{ getErrorMessage('preparationTime') }}
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+          <div class="card border-success border-2 h-100">
+            <div class="card-body">
+              <label for="cookTime" class="form-label d-flex align-items-center gap-2">
+                <i class="bi bi-fire text-success" style="font-size: 1.5rem"></i>
+                <span class="fw-bold">Cocción (min) <span class="text-danger">*</span></span>
+              </label>
+              <input
+                type="number"
+                class="form-control form-control-lg text-center"
+                id="cookTime"
+                formControlName="cookTime"
+                [class.is-invalid]="isFieldInvalid('cookTime')"
+                placeholder="20"
+                min="0"
+              />
+              @if (isFieldInvalid('cookTime')) {
+              <div class="invalid-feedback">
+                {{ getErrorMessage('cookTime') }}
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4">
+          <div class="card border-success border-2 bg-light h-100">
+            <div class="card-body d-flex flex-column justify-content-center">
+              <div class="text-center">
+                <i class="bi bi-speedometer text-success mb-2" style="font-size: 2rem"></i>
+                <p class="small text-muted mb-1">Tiempo Total</p>
+                <p class="fw-bold fs-4 mb-0">
+                  {{
+                    (recipeForm.get('preparationTime')?.value || 0) +
+                      (recipeForm.get('cookTime')?.value || 0)
+                  }}
+                  min
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ingredientes -->
+      <div class="mb-5">
+        <h3 class="fw-bold mb-3">
+          <i class="bi bi-basket2-fill text-success me-2"></i>
+          Ingredientes
+        </h3>
+        <app-dynamic-list-input formControlName="ingredients"></app-dynamic-list-input>
+      </div>
+
+      <!-- Pasos de preparación -->
+      <div class="mb-5">
+        <h3 class="fw-bold mb-3">
+          <i class="bi bi-list-check text-success me-2"></i>
+          Pasos de preparación
+        </h3>
+        <app-dynamic-list-input formControlName="steps"></app-dynamic-list-input>
+      </div>
+
+      <!-- Botones de acción fijos al final (Mobile) -->
+      <div class="d-flex d-sm-none gap-3 mt-5 pt-4 border-top sticky-bottom-actions">
+        <button type="button" class="btn btn-outline-secondary flex-fill" (click)="handleCancel()">
+          <i class="bi bi-x-circle"></i>
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-success flex-fill"
+          [disabled]="submitted && recipeForm.invalid"
+        >
+          <i [class]="isUpdateMode() ? 'bi bi-check-circle' : 'bi bi-plus-circle'"></i>
+          {{ getSubmitButtonText() }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
