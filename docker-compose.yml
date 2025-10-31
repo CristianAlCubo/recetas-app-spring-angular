@@ -1,0 +1,51 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: recetas-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: recetas_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - recetas-network
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  recetas-backend:
+    build: ./backend
+    container_name: recetas-backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=recetas_db
+      - DB_USER=user
+      - DB_PASS=password
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - IS_PRODUCTION=${IS_PRODUCTION}
+      - FRONTEND_URL=http://${FRONTEND_HOST}:${FRONTEND_PORT}
+    networks:
+      - recetas-network
+
+  recetas-frontend:
+    build: ./frontend
+    container_name: recetas-frontend
+    ports:
+      - "${FRONTEND_PORT}:80"
+    depends_on:
+      - recetas-backend
+    networks:
+      - recetas-network
+volumes:
+  db_data:
+
+networks:
+  recetas-network:
+    driver: bridge

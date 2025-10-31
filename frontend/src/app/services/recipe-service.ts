@@ -10,7 +10,10 @@ import { CreateRecipe, Recipe } from '../types/recipe';
   providedIn: 'root',
 })
 export class RecipeService {
-  private API_URL = `http://${environment.API_HOST}:${environment.API_PORT}/api/${environment.API_VERSION}/recipe`;
+  private API_URL =
+    environment.API_HOST && environment.API_PORT
+      ? `http://${environment.API_HOST}:${environment.API_PORT}/api/${environment.API_VERSION}/recipe`
+      : `/api/${environment.API_VERSION}/recipe`;
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
   });

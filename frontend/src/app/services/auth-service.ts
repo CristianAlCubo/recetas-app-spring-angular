@@ -11,33 +11,43 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-
-  private API_URL = `http://${environment.API_HOST}:${environment.API_PORT}/api/${environment.API_VERSION}/auth`;
+  private API_URL =
+    environment.API_HOST && environment.API_PORT
+      ? `http://${environment.API_HOST}:${environment.API_PORT}/api/${environment.API_VERSION}/auth`
+      : `/api/${environment.API_VERSION}/auth`;
   private headers = new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   });
 
   constructor(private http: HttpClient, private router: Router) {}
 
   login(login: Login): Observable<ApiResponse<TokenResponse>> {
-    return this.http.post<ApiResponse<TokenResponse>>(`${this.API_URL}/login`, login, { headers: this.headers }).pipe(
-      tap(({ data }) => localStorage.setItem('access_token', data.token)),
-      catchError((error) => {
-        return throwError(() => error);
-      })
-    );
+    return this.http
+      .post<ApiResponse<TokenResponse>>(`${this.API_URL}/login`, login, { headers: this.headers })
+      .pipe(
+        tap(({ data }) => localStorage.setItem('access_token', data.token)),
+        catchError((error) => {
+          return throwError(() => error);
+        })
+      );
   }
 
   register(register: Register): Observable<ApiResponse<TokenResponse>> {
-    return this.http.post<ApiResponse<TokenResponse>>(`${this.API_URL}/register`, {
-      username: register.username,
-      password: register.password
-    }, { headers: this.headers }).pipe(
-      tap(({ data }) => localStorage.setItem('access_token', data.token)),
-      catchError((error) => {
-        return throwError(() => error);
-      })
-    );
+    return this.http
+      .post<ApiResponse<TokenResponse>>(
+        `${this.API_URL}/register`,
+        {
+          username: register.username,
+          password: register.password,
+        },
+        { headers: this.headers }
+      )
+      .pipe(
+        tap(({ data }) => localStorage.setItem('access_token', data.token)),
+        catchError((error) => {
+          return throwError(() => error);
+        })
+      );
   }
 
   logout() {
