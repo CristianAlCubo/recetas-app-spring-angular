@@ -6,10 +6,8 @@
         class="form-control"
         placeholder="Buscar recetas, ingredientes..."
         [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearchChange()"
       />
-      <button class="btn btn-success" type="button" (click)="onSearchClick()">
-        <i class="bi bi-search"></i> Buscar
-      </button>
     </div>
 
     <div class="d-flex gap-2 flex-wrap align-items-center justify-content-between menu-controls">
@@ -23,54 +21,16 @@
         >
           Todos
         </button>
+        @for (category of categories; track category) {
         <button
-          [class.btn-success]="isActive('Desayuno')"
-          [class.btn-light]="!isActive('Desayuno')"
+          [class.btn-success]="isActive(category)"
+          [class.btn-light]="!isActive(category)"
           class="btn btn-sm border filter-btn"
-          (click)="filterByCategory('Desayuno')"
+          (click)="filterByCategory(category)"
         >
-          Desayuno
+          {{ categoryLabels[category] }}
         </button>
-        <button
-          [class.btn-success]="isActive('Almuerzo')"
-          [class.btn-light]="!isActive('Almuerzo')"
-          class="btn btn-sm border filter-btn"
-          (click)="filterByCategory('Almuerzo')"
-        >
-          Almuerzo
-        </button>
-        <button
-          [class.btn-success]="isActive('Cena')"
-          [class.btn-light]="!isActive('Cena')"
-          class="btn btn-sm border filter-btn"
-          (click)="filterByCategory('Cena')"
-        >
-          Cena
-        </button>
-        <button
-          [class.btn-success]="isActive('Postre')"
-          [class.btn-light]="!isActive('Postre')"
-          class="btn btn-sm border filter-btn"
-          (click)="filterByCategory('Postre')"
-        >
-          Postre
-        </button>
-        <button
-          [class.btn-success]="isActive('Snack')"
-          [class.btn-light]="!isActive('Snack')"
-          class="btn btn-sm border filter-btn"
-          (click)="filterByCategory('Snack')"
-        >
-          Vegetariano
-        </button>
-        <button
-          [class.btn-success]="isActive('Bebida')"
-          [class.btn-light]="!isActive('Bebida')"
-          class="btn btn-sm border filter-btn"
-          (click)="filterByCategory('Bebida')"
-        >
-          Rápido y Fácil
-        </button>
+        }
       </div>
 
       <button

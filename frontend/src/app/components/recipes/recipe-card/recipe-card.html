@@ -1,4 +1,11 @@
-<div class="card h-100 shadow-sm recipe-card" (click)="navigateToRecipeDetails()" role="button" tabindex="0" (keydown.enter)="navigateToRecipeDetails()" (keydown.space)="navigateToRecipeDetails()">
+<div
+  class="card h-100 shadow-sm recipe-card"
+  (click)="navigateToRecipeDetails()"
+  role="button"
+  tabindex="0"
+  (keydown.enter)="navigateToRecipeDetails()"
+  (keydown.space)="navigateToRecipeDetails()"
+>
   <div class="card-body">
     <h5 class="card-title">{{ recipe().name }}</h5>
     <div class="d-flex align-items-center gap-3 mb-3 text-muted">
@@ -15,7 +22,7 @@
   </div>
   <div class="card-footer border-top">
     <span class="badge" [ngClass]="getCategoryBadgeClass()">
-      {{ recipe().category }}
+      {{ categoryLabels[recipe().category] }}
     </span>
   </div>
 </div>

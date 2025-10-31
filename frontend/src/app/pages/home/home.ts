@@ -5,7 +5,7 @@ import { AuthService } from '../../services/auth-service';
 import { RecipeList } from '../../components/recipes/recipe-list/recipe-list';
 import { Menu } from '../../components/menu/menu';
 import { Footer } from '../../components/footer/footer';
-import { Recipe } from '../../types/recipe';
+import { Recipe, RecipeCategory } from '../../types/recipe';
 import { RecipeService } from '../../services/recipe-service';
 
 @Component({
@@ -17,32 +17,55 @@ import { RecipeService } from '../../services/recipe-service';
 })
 export class Home {
   protected authService = inject(AuthService);
-  searchQuery: string = '';
-  selectedCategory: string | null = null;
-  recipes = signal<Recipe[]>([]);
-
   protected recipeService = inject(RecipeService);
+
+  searchQuery = signal<string>('');
+  selectedCategory = signal<RecipeCategory | null>(null);
+  allRecipes = signal<Recipe[]>([]);
+
+  filteredRecipes = computed(() => {
+    const recipes = this.allRecipes();
+    const category = this.selectedCategory();
+    const query = this.searchQuery().toLowerCase().trim();
+
+    let filtered = recipes;
+
+    if (category) {
+      filtered = filtered.filter((recipe) => recipe.category === category);
+    }
+
+    if (query) {
+      filtered = filtered.filter(
+        (recipe) =>
+          recipe.name.toLowerCase().includes(query) ||
+          recipe.description.toLowerCase().includes(query) ||
+          recipe.ingredients.some((ing) => ing.name.toLowerCase().includes(query))
+      );
+    }
+
+    return filtered;
+  });
+
+  hasFiltersApplied = computed(() => {
+    return this.selectedCategory() !== null || this.searchQuery().trim() !== '';
+  });
 
   ngAfterViewInit() {
     this.recipeService.getRecipes().subscribe({
       next: (response) => {
-        this.recipes.set(response.data);
+        this.allRecipes.set(response.data);
       },
       error: (error) => {
-        console.error('Error:', error);
+        console.error('Error al cargar recetas:', error);
       },
     });
   }
 
   handleSearch(query: string) {
-    this.searchQuery = query;
-    console.log('Buscando:', query);
-    // Implementar lógica de búsqueda aquí
+    this.searchQuery.set(query);
   }
 
-  handleFilterChange(category: string | null) {
-    this.selectedCategory = category;
-    console.log('Filtro:', category);
-    // Implementar lógica de filtrado aquí
+  handleFilterChange(category: RecipeCategory | null) {
+    this.selectedCategory.set(category);
   }
 }

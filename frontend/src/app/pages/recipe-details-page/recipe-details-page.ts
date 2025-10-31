@@ -3,10 +3,11 @@ import { RecipeDetails } from '../../components/recipes/recipe-details/recipe-de
 import { RecipeService } from '../../services/recipe-service';
 import { Recipe as RecipeType } from '../../types/recipe';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Footer } from '../../components/footer/footer';
 
 @Component({
   selector: 'app-recipe-details-page',
-  imports: [RecipeDetails, RouterLink],
+  imports: [RecipeDetails, RouterLink, Footer],
   templateUrl: './recipe-details-page.html',
   styleUrl: './recipe-details-page.css',
 })

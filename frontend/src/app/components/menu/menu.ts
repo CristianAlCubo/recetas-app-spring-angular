@@ -1,7 +1,8 @@
-import { Component, input, output } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { RecipeCategory, CategoryLabels } from '../../types/recipe';
 
 @Component({
   selector: 'app-menu',
@@ -12,21 +13,24 @@ import { RouterLink } from '@angular/router';
 })
 export class Menu {
   searchQuery: string = '';
-  selectedCategory: string | null = null;
+  selectedCategory: RecipeCategory | null = null;
+
+  categories = Object.values(RecipeCategory);
+  categoryLabels = CategoryLabels;
 
   onSearch = output<string>();
-  onFilterChange = output<string | null>();
+  onFilterChange = output<RecipeCategory | null>();
 
-  onSearchClick() {
+  onSearchChange() {
     this.onSearch.emit(this.searchQuery);
   }
 
-  filterByCategory(category: string | null) {
+  filterByCategory(category: RecipeCategory | null) {
     this.selectedCategory = category;
     this.onFilterChange.emit(category);
   }
 
-  isActive(category: string | null): boolean {
+  isActive(category: RecipeCategory | null): boolean {
     return this.selectedCategory === category;
   }
 }
