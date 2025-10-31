@@ -29,10 +29,17 @@
       <p class="text-muted mb-4">
         Comienza a guardar tus recetas favoritas. ¡Crea tu primera receta ahora!
       </p>
-      <a [routerLink]="['/recipe/new']" class="btn btn-success btn-lg">
-        <i class="bi bi-plus-circle"></i>
-        Crear receta
-      </a>
+      <div class="d-flex align-items-center gap-2">
+        <a [routerLink]="['/recipe/new']" class="btn btn-success btn-lg">
+          <i class="bi bi-plus-circle"></i>
+          Crear receta
+        </a>
+        <span class="mx-2">ó</span>
+        <button class="btn btn-info btn-lg" (click)="handleLoadDefaultRecipe()">
+          <i class="bi bi-upload"></i>
+          Carga un ejemplo predeterminado
+        </button>
+      </div>
     </div>
   </div>
   } }

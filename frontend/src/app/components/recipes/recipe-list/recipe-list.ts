@@ -1,7 +1,8 @@
-import { Component, input } from '@angular/core';
-import { Recipe } from '../../../types/recipe';
+import { Component, inject, input, output } from '@angular/core';
+import { Recipe, RecipeCategory, RecipeDifficulty } from '../../../types/recipe';
 import { RecipeCard } from '../recipe-card/recipe-card';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { RecipeService } from '../../../services/recipe-service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -13,4 +14,13 @@ import { RouterLink } from '@angular/router';
 export class RecipeList {
   recipes = input.required<Recipe[]>();
   hasFiltersApplied = input<boolean>(false);
+
+  loadDefaultRecipe = output<void>();
+
+  protected recipeService = inject(RecipeService);
+  protected router = inject(Router);
+
+  handleLoadDefaultRecipe() {
+    this.loadDefaultRecipe.emit();
+  }
 }

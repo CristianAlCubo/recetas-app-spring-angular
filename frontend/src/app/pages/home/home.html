@@ -8,6 +8,7 @@
 <app-recipe-list
   [recipes]="filteredRecipes()"
   [hasFiltersApplied]="hasFiltersApplied()"
+  (loadDefaultRecipe)="loadDefaultRecipe()"
 ></app-recipe-list>
 
 <app-footer></app-footer>
