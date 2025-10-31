@@ -26,6 +26,7 @@ public class SecurityConfig {
                                                    JwtAuthFilter jwtAuthFilter) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> {}) // Dejar que com.ccubillos.config.WebConfig maneje la configuración CORS
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(ApiPrefixConfig.API_VERSION + "/auth/**").permitAll()
                         .anyRequest().authenticated()

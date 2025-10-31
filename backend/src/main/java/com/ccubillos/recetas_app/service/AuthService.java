@@ -3,6 +3,7 @@ package com.ccubillos.recetas_app.service;
 import com.ccubillos.recetas_app.api.dto.auth.AuthDTO;
 import com.ccubillos.recetas_app.model.entity.User;
 import com.ccubillos.recetas_app.repository.UserRepository;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class AuthService {
     public User saveUser(AuthDTO newUserData) {
         User user = new User();
         if(userRepository.findByUsername(newUserData.getUsername()).isPresent()) {
-            throw new IllegalArgumentException("Username already exists");
+            throw new DuplicateKeyException("Username already exists");
         }
 
         user.setUsername(newUserData.getUsername());
