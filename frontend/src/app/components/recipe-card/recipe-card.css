@@ -1,0 +1,65 @@
+.recipe-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+
+  overflow: hidden;
+  position: relative;
+}
+
+.recipe-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.recipe-card:active {
+  transform: translateY(-4px);
+}
+
+.recipe-card .card-body {
+  position: relative;
+  z-index: 1;
+}
+
+.recipe-card .card-title {
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 0.75rem;
+  transition: color 0.3s ease;
+}
+
+.recipe-card:hover .card-title {
+  color: #5e7f28;
+}
+
+.recipe-card .card-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.recipe-card .card-footer {
+  background-color: #f8f9fa !important;
+  transition: background-color 0.3s ease;
+}
+
+.recipe-card:hover .card-footer {
+  background-color: #e9ecef !important;
+}
+
+.recipe-card .badge {
+  font-size: 0.75rem;
+  padding: 0.4rem 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.recipe-card .bi {
+  transition: color 0.3s ease;
+}
+
+.recipe-card:hover .bi {
+  color: #5e7f28;
+}

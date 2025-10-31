@@ -1,0 +1,11 @@
+<div class="container mt-5">
+  <a [routerLink]="['/']" class="btn btn-secondary mb-4">
+    <i class="bi bi-arrow-left"></i>
+    Volver
+  </a>
+  @if (recipe()) {
+  <app-recipe-details [recipe]="recipe()!"></app-recipe-details>
+  } @else {
+  <p>No recipe found</p>
+  }
+</div>

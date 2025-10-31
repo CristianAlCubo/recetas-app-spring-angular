@@ -1,0 +1,25 @@
+<div class="bg-white py-4">
+  <div class="container">
+    <div class="input-group mb-4">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Buscar recetas, ingredientes..."
+        [(ngModel)]="searchQuery"
+      />
+      <button class="btn btn-success" type="button" (click)="onSearchClick()">
+        <i class="bi bi-search"></i> Buscar
+      </button>
+    </div>
+
+    <div class="d-flex gap-2 flex-wrap">
+      <button [class.btn-success]="isActive(null)" [class.btn-light]="!isActive(null)" class="btn border" (click)="filterByCategory(null)">Todos</button>
+      <button [class.btn-success]="isActive('Desayuno')" [class.btn-light]="!isActive('Desayuno')" class="btn border" (click)="filterByCategory('Desayuno')">Desayuno</button>
+      <button [class.btn-success]="isActive('Almuerzo')" [class.btn-light]="!isActive('Almuerzo')" class="btn border" (click)="filterByCategory('Almuerzo')">Almuerzo</button>
+      <button [class.btn-success]="isActive('Cena')" [class.btn-light]="!isActive('Cena')" class="btn border" (click)="filterByCategory('Cena')">Cena</button>
+      <button [class.btn-success]="isActive('Postre')" [class.btn-light]="!isActive('Postre')" class="btn border" (click)="filterByCategory('Postre')">Postre</button>
+      <button [class.btn-success]="isActive('Snack')" [class.btn-light]="!isActive('Snack')" class="btn border" (click)="filterByCategory('Snack')">Vegetariano</button>
+      <button [class.btn-success]="isActive('Bebida')" [class.btn-light]="!isActive('Bebida')" class="btn border" (click)="filterByCategory('Bebida')">Rápido y Fácil</button>
+    </div>
+  </div>
+</div>

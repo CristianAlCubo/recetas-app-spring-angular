@@ -1,3 +1,8 @@
-<h1>Bienvenido a la aplicación de recetas</h1>
-<p>Aquí podrás ver las recetas disponibles y crear tus propias recetas.</p>
-<button class="btn btn-primary" (click)="authService.logout()">Cerrar sesión</button>
+<app-menu
+  (onSearch)="handleSearch($event)"
+  (onFilterChange)="handleFilterChange($event)"
+></app-menu>
+
+<app-recipe-list></app-recipe-list>
+
+<app-footer></app-footer>
