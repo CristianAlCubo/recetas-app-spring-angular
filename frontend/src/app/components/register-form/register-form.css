@@ -1,0 +1,165 @@
+.register-container {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  overflow: hidden;
+}
+
+.geometric-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.square {
+  position: absolute;
+  border-radius: 12px;
+  opacity: 0.08;
+  animation: float 20s infinite ease-in-out;
+}
+
+.square-1 {
+  width: 180px;
+  height: 180px;
+  background: #28a745;
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.square-2 {
+  width: 120px;
+  height: 120px;
+  background: #20c997;
+  top: 60%;
+  left: 80%;
+  animation-delay: 2s;
+}
+
+.square-3 {
+  width: 150px;
+  height: 150px;
+  background: #5cb85c;
+  top: 80%;
+  left: 10%;
+  animation-delay: 4s;
+}
+
+.square-4 {
+  width: 100px;
+  height: 100px;
+  background: #28a745;
+  top: 30%;
+  left: 85%;
+  animation-delay: 1s;
+}
+
+.square-5 {
+  width: 90px;
+  height: 90px;
+  background: #20c997;
+  top: 15%;
+  left: 50%;
+  animation-delay: 3s;
+}
+
+.square-6 {
+  width: 140px;
+  height: 140px;
+  background: #5cb85c;
+  top: 50%;
+  left: 40%;
+  animation-delay: 5s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-30px) rotate(5deg);
+  }
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 1rem;
+}
+
+.card-body {
+  border-radius: 1rem;
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+  border-right: none;
+}
+
+.form-control {
+  border-left: none;
+}
+
+.form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.form-control:focus + .input-group-text,
+.input-group-text:has(+ .form-control:focus) {
+  border-color: #28a745;
+}
+
+.btn-primary {
+  padding: 0.75rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  transform: none;
+}
+
+.text-decoration-none {
+  color: #28a745;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.text-decoration-none:hover {
+  color: #218838;
+  text-decoration: underline !important;
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 2rem !important;
+  }
+
+  .square {
+    opacity: 0.05;
+  }
+}
+
+

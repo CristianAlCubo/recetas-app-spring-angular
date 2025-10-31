@@ -16,6 +16,7 @@ import { Router, RouterLink } from '@angular/router';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './register-form.html',
+  styleUrl: './register-form.css',
 })
 export class RegisterForm {
   private fb = inject(FormBuilder);
@@ -25,18 +26,21 @@ export class RegisterForm {
   hidePassword = true;
   hidePasswordConfirmation = true;
 
-  registerForm: FormGroup = this.fb.group({
-    username: ['', [Validators.required, Validators.minLength(1)]],
-    password: ['', [Validators.required, Validators.minLength(1)]],
-    passwordConfirmation: ['', [Validators.required, Validators.minLength(1)]],
-  }, { validators: this.passwordMatchValidator.bind(this) });
+  registerForm: FormGroup = this.fb.group(
+    {
+      username: ['', [Validators.required, Validators.minLength(1)]],
+      password: ['', [Validators.required, Validators.minLength(1)]],
+      passwordConfirmation: ['', [Validators.required, Validators.minLength(1)]],
+    },
+    { validators: this.passwordMatchValidator.bind(this) }
+  );
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
     const passwordConfirmation = control.get('passwordConfirmation')?.value;
-    
+
     const passwordConfirmationControl = control.get('passwordConfirmation');
-  
+
     if (password && passwordConfirmation && password !== passwordConfirmation) {
       passwordConfirmationControl?.setErrors({ mismatch: true });
       return { mismatch: true };
