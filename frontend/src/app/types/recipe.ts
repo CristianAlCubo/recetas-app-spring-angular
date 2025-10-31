@@ -43,4 +43,6 @@ export interface Recipe {
     cookTime: number;
     difficulty: RecipeDifficulty;
     servings: number;
+    ingredients: RecipeIngredient[];
+    steps: RecipeStep[];
 }

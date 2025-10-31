@@ -1,0 +1,18 @@
+/* No custom styles needed - using Bootstrap utilities from Bootswatch Brite theme */
+
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.list-group-item {
+  padding-left: 1rem;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}
