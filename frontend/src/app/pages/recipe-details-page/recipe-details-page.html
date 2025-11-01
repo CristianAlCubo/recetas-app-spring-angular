@@ -1,3 +1,10 @@
+@if(loading()) {
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh">
+  <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem">
+    <span class="visually-hidden">Cargando...</span>
+  </div>
+</div>
+} @else {
 <div class="container mt-5">
   <a [routerLink]="['/']" class="btn btn-secondary mb-4">
     <i class="bi bi-arrow-left"></i>
@@ -10,3 +17,4 @@
   }
 </div>
 <app-footer></app-footer>
+}

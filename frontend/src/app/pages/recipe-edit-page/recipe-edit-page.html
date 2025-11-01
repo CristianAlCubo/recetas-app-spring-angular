@@ -1,3 +1,10 @@
+@if(loading()) {
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+    <span class="visually-hidden">Cargando...</span>
+  </div>
+</div>
+} @else {
 <app-recipe-form
   [mode]="'update'"
   [recipe]="recipe()"
@@ -5,3 +12,4 @@
   (onCancel)="handleCancel()"
 ></app-recipe-form>
 <app-footer></app-footer>
+}

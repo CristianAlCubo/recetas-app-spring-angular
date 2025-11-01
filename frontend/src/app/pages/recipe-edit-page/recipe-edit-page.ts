@@ -16,14 +16,18 @@ export class RecipeEditPage {
   protected route = inject(ActivatedRoute);
   protected recipe = signal<Recipe | null>(null);
   protected router = inject(Router);
+  protected loading = signal<boolean>(true);
 
   constructor() {
+    this.loading.set(true);
     this.recipeService.getRecipe(Number(this.route.snapshot.params['id'])).subscribe({
       next: (response) => {
         this.recipe.set(response.data);
+        this.loading.set(false);
       },
       error: (error) => {
         console.error('Error:', error);
+        this.loading.set(false);
       },
     });
   }

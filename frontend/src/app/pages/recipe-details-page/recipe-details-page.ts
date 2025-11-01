@@ -15,13 +15,18 @@ export class RecipeDetailsPage {
   protected recipeService = inject(RecipeService);
   protected recipe = signal<RecipeType | null>(null);
   protected route = inject(ActivatedRoute);
+  protected loading = signal<boolean>(true);
+
   ngOnInit() {
+    this.loading.set(true);
     this.recipeService.getRecipe(this.route.snapshot.params['id']).subscribe({
       next: (response) => {
         this.recipe.set(response.data);
+        this.loading.set(false);
       },
       error: (error) => {
         console.error('Error:', error);
+        this.loading.set(false);
       },
     });
   }

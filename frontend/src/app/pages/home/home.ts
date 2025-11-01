@@ -23,6 +23,7 @@ export class Home {
   searchQuery = signal<string>('');
   selectedCategory = signal<RecipeCategory | null>(null);
   allRecipes = signal<Recipe[]>([]);
+  loading = signal<boolean>(true);
 
   filteredRecipes = computed(() => {
     const recipes = this.allRecipes();
@@ -52,12 +53,15 @@ export class Home {
   });
 
   ngAfterViewInit() {
+    this.loading.set(true);
     this.recipeService.getRecipes().subscribe({
       next: (response) => {
         this.allRecipes.set(response.data);
+        this.loading.set(false);
       },
       error: (error) => {
         console.error('Error al cargar recetas:', error);
+        this.loading.set(false);
       },
     });
   }
