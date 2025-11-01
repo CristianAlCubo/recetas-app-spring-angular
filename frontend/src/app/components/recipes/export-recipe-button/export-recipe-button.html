@@ -1,4 +1,11 @@
-<button class="btn btn-success" (click)="exportRecipes()">
-  <i class="bi bi-file-earmark-pdf"></i>
-  Exportar PDF
+<button class="btn btn-success" (click)="exportRecipes()" [disabled]="isLoading">
+  <span
+    *ngIf="isLoading"
+    class="spinner-border spinner-border-sm"
+    role="status"
+    aria-hidden="true"
+  ></span>
+  <i *ngIf="!isLoading" class="bi bi-file-earmark-pdf"></i>
+  <span *ngIf="!isLoading">Exportar PDF</span>
+  <span *ngIf="isLoading">Exportando...</span>
 </button>
