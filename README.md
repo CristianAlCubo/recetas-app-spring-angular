@@ -104,7 +104,7 @@ FRONTEND_URL=http://localhost
 3. **Levantar los contenedores**
 
 ```bash
-docker-compose up -d
+docker compose up --build
 ```
 
 Este comando iniciará tres servicios:
