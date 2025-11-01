@@ -24,8 +24,6 @@ export class RecipeCard {
       [RecipeCategory.DESSERT]: 'bg-danger text-dark',
       [RecipeCategory.BEVERAGE]: 'bg-primary text-dark',
     };
-    console.log('Category:', this.recipe().category);
-    console.log('ClassName:', categoryClasses[this.recipe().category]);
     return categoryClasses[this.recipe().category];
   }
 

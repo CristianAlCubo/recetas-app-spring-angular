@@ -107,7 +107,6 @@ export class RecipeForm implements OnInit {
     this.submitted = true;
 
     if (this.recipeForm.invalid) {
-      console.log('Formulario inválido');
       Object.keys(this.recipeForm.controls).forEach((key) => {
         const control = this.recipeForm.get(key);
         if (control && control.invalid) {

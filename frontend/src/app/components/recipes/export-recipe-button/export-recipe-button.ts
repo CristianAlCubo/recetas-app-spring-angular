@@ -14,11 +14,9 @@ export class ExportRecipeButton {
   isLoading = false;
 
   exportRecipes() {
-    console.log('Exporting recipe:', this.recipeId());
     this.isLoading = true;
     this.pdfService.exportRecipePDF(this.recipeId()).subscribe({
       next: (response) => {
-        console.log('Recipe exported:', response);
         this.isLoading = false;
       },
       error: (error) => {

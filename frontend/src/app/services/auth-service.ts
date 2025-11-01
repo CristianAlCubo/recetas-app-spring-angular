@@ -19,7 +19,7 @@ export class AuthService {
     'Content-Type': 'application/json',
   });
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(login: Login): Observable<ApiResponse<TokenResponse>> {
     return this.http
@@ -56,18 +56,12 @@ export class AuthService {
   }
 
   checkTokenExpiration() {
-    console.log('Checking token expiration');
     const token = localStorage.getItem('access_token');
-    console.log(token);
     if (token) {
       const decodedToken = jwtDecode<{ exp: number }>(token);
-      console.log(decodedToken);
       if (decodedToken.exp < Date.now() / 1000) {
-        console.log('Token expired');
         localStorage.removeItem('access_token');
         this.router.navigate(['/login']);
-      } else {
-        console.log('Token not expired');
       }
     }
   }
