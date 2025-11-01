@@ -14,8 +14,8 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -prootpassword"]
       interval: 10s
-      timeout: 5s
-      retries: 5
+      timeout: 10s
+      retries: 10
   recetas-backend:
     build: ./backend
     container_name: recetas-backend
@@ -30,7 +30,7 @@ services:
       - DB_PASS=password
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
       - IS_PRODUCTION=${IS_PRODUCTION}
-      - FRONTEND_URL=http://${FRONTEND_HOST}:${FRONTEND_PORT}
+      - FRONTEND_URL=${FRONTEND_URL}
     networks:
       - recetas-network
 
@@ -38,7 +38,7 @@ services:
     build: ./frontend
     container_name: recetas-frontend
     ports:
-      - "${FRONTEND_PORT}:80"
+      - 80:80
     depends_on:
       - recetas-backend
     networks:
